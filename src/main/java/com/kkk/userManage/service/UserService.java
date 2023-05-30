@@ -27,6 +27,10 @@ public class UserService implements UserDetailsService{
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    static {
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(s);
@@ -42,6 +46,7 @@ public class UserService implements UserDetailsService{
 
         Role role_user = new Role("ROLE_user");
         roleRepository.save(role_user);
+        user.setEnabled(true);
         user.setRoles(Arrays.asList(role_user));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);

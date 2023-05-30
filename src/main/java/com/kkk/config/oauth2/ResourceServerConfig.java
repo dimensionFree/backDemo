@@ -15,12 +15,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-//    @Override
-//    public void configure(ResourceServerSecurityConfigurer resources) {
-//
-//        resources.resourceId("rid") // 配置资源id，这里的资源id和授权服务器中的资源id一致
-//                .stateless(true); // 设置这些资源仅基于令牌认证
-//    }
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+
+        resources.resourceId("rid") // 配置资源id，这里的资源id和授权服务器中的资源id一致
+                .stateless(true); // 设置这些资源仅基于令牌认证
+    }
 
     // 配置 URL 访问权限
     /*
@@ -29,36 +29,35 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable();
-//
-//        http.authorizeRequests()
-////                .antMatchers("/hello").hasAuthority("user")
-////                .hasAuthority(Role.user.name())
-//                .mvcMatchers(HttpMethod.POST,"/user").anonymous()
-//                .mvcMatchers(HttpMethod.POST,"/login").permitAll()
-//                .mvcMatchers(HttpMethod.GET,"/user").permitAll()
-//                .mvcMatchers(HttpMethod.GET,"/token/*").permitAll()
-//                .mvcMatchers(HttpMethod.GET,"/user/*").hasRole("user")
-//                .anyRequest().authenticated()
-//
-//                .and()
-//                .cors()// 启用CORS支持
-////                .and()
-//                //指定登录认证的Controller
-////                .formLogin().permitAll()
-////                .and()
-////                .logout().permitAll()
-//                .and().httpBasic();
-//
-//        //        https://blog.csdn.net/qq_21602341/article/details/114577740
-//        //禁用session
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-
+        http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("admin")
-                .antMatchers("/user/**").hasRole("user")
-                .anyRequest().authenticated();
+//                .antMatchers("/hello").hasAuthority("user")
+//                .hasAuthority(Role.user.name())
+                .mvcMatchers(HttpMethod.POST,"/user").anonymous()
+                .mvcMatchers(HttpMethod.POST,"/login").permitAll()
+                .mvcMatchers(HttpMethod.GET,"/user").permitAll()
+                .mvcMatchers(HttpMethod.GET,"/user/*").hasRole("user")
+                .anyRequest().authenticated()
+
+                .and()
+                .cors()// 启用CORS支持
+//                .and()
+                //指定登录认证的Controller
+//                .formLogin().permitAll()
+//                .and()
+//                .logout().permitAll()
+                .and().httpBasic();
+
+        //        https://blog.csdn.net/qq_21602341/article/details/114577740
+        //禁用session
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+//        http.authorizeRequests()
+//                .antMatchers("/admin/**").hasRole("admin")
+//                .antMatchers("/user/**").hasRole("user")
+//                .antMatchers("/user/**").hasRole("user")
+//
+//                .anyRequest().authenticated();
     }
 }
