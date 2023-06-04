@@ -53,5 +53,12 @@ public class User implements UserDetails{
         });
         return authorities;
     }
+    
+    public void setUsable(boolean usable){
+        setAccountNonLocked(usable);
+        setEnabled(usable);
+        setCredentialsNonExpired(usable);
+        setAccountNonExpired(usable);
+    }
 
 }

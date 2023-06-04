@@ -17,15 +17,14 @@ public class LoginController {
     AuthenticationManager authenticationManager;
 
     @PostMapping
-    public String login(@RequestBody User user) throws Exception {
+    public Authentication login(@RequestBody User user) throws Exception {
         System.out.println(user.toString());
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(token);
-
         System.out.println(authenticate.isAuthenticated());
 
-        return authenticate.toString();
+        return authenticate;
 
     }
 
