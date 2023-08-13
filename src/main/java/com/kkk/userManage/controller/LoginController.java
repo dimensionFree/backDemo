@@ -20,8 +20,9 @@ public class LoginController {
     public Authentication login(@RequestBody User user) throws Exception {
         System.out.println(user.toString());
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-        Authentication authenticate = authenticationManager.authenticate(token);
+        var token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        var authenticate = authenticationManager.authenticate(token);
+
         System.out.println(authenticate.isAuthenticated());
 
         return authenticate;

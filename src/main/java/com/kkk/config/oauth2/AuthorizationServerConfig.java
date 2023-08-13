@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    public static final String CLIENT_ID = "client_local";
     // 该对象用来支持 password 模式
     @Autowired
     AuthenticationManager authenticationManager;
@@ -33,25 +34,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     UserDetailsService userDetailsService;
 
-    // 指定密码的加密方式
-//    @Bean
-//    PasswordEncoder passwordEncoder() {
-//        // 使用BCrypt强哈希函数加密方案（密钥迭代次数默认为10）
-//        return new BCryptPasswordEncoder();
-//    }
-
     // 配置 password 授权模式
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
 
-
         clients.inMemory()
                 //授权Id
-                .withClient("password")
+                .withClient(CLIENT_ID)
                 .authorizedGrantTypes("password", "refresh_token") //授权模式为password和refresh_token两种
                 .accessTokenValiditySeconds(1800) // 配置access_token的过期时间
-                .resourceIds("rid") //配置资源id
+//                .resourceIds("rid") //配置资源id
                 .scopes("all")
                 //授权密码
                 .secret("$2a$10$RMuFXGQ5AtH4wOvkUqyvuecpqUSeoxZYqilXzbz50dceRsga.WYiq"); //123加密后的密码

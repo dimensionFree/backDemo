@@ -15,12 +15,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) {
-
-        resources.resourceId("rid") // 配置资源id，这里的资源id和授权服务器中的资源id一致
-                .stateless(true); // 设置这些资源仅基于令牌认证
-    }
+//    @Override
+//    public void configure(ResourceServerSecurityConfigurer resources) {
+//
+//        resources.resourceId("rid") // 配置资源id，这里的资源id和授权服务器中的资源id一致
+//                .stateless(true); // 设置这些资源仅基于令牌认证
+//    }
 
     // 配置 URL 访问权限
     /*
