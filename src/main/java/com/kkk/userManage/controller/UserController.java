@@ -19,6 +19,7 @@ public class UserController {
 
     @PostMapping("/user")
     public User addUser(@RequestBody @Valid User user){
+
         return userService.saveUser(user);
     }
 
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public List findAllUsers(){
+    public List<User> findAllUsers(){
         return userService.findAllUsers();
     }
 

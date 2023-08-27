@@ -50,6 +50,7 @@ public class UserService implements UserDetailsService{
         user.setRoles(Arrays.asList(role_user));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUsable(true);
+
         return userRepository.save(user);
     }
 
@@ -57,7 +58,7 @@ public class UserService implements UserDetailsService{
         return userRepository.findById(id).get();
     }
 
-    public List findAllUsers(){
+    public List<User> findAllUsers(){
         return userRepository.findAll();
     }
 }
