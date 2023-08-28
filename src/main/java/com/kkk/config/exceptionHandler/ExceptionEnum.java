@@ -9,7 +9,9 @@ public enum ExceptionEnum implements BaseErrorInfoInterface{
     SIGNATURE_NOT_MATCH("4001","请求的数字签名不匹配!"),
     NOT_FOUND("4004", "未找到该资源!"),
     INTERNAL_SERVER_ERROR("5000", "服务器内部错误!"),
-    SERVER_BUSY("5003","服务器正忙，请稍后再试!");
+    SERVER_BUSY("5003","服务器正忙，请稍后再试!"),
+    TOKEN_INVALID("4001","token invalid"),
+    TOKEN_EXPIRED("4001","token expired!");
 
     /**
      * 错误码

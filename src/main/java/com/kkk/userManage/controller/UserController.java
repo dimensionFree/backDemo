@@ -1,13 +1,17 @@
 package com.kkk.userManage.controller;
 
+import com.kkk.config.filter.LoginUserContext;
 import com.kkk.userManage.entity.User;
 import com.kkk.userManage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -24,7 +28,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User findUserById(@PathVariable Long id){
+    public User findUserById(@PathVariable Long id, @RequestHeader Map<String,String> header){
+//        LoginUserContext.getUser();
         return userService.findUserById(id);
     }
 

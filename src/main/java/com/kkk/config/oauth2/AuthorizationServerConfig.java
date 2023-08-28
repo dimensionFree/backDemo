@@ -1,6 +1,7 @@
 package com.kkk.config.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
  * 授权服务器
@@ -26,9 +28,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     AuthenticationManager authenticationManager;
 
-    // 该对象用来将令牌信息存储到内存中
-    @Autowired(required = false)
-    TokenStore inMemoryTokenStore;
+//    // 该对象用来将令牌信息存储到内存中
+//    @Autowired(required = false)
+//    TokenStore inMemoryTokenStore;
+
+    @Autowired
+    @Qualifier("jwtTokenStore")
+    private TokenStore tokenStore;
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
 
     // 该对象将为刷新token提供支持
     @Autowired
@@ -52,9 +61,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(inMemoryTokenStore) //配置令牌的存储（这里存放在内存中）
-                .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService);
+        endpoints.authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService)
+                //accessToken -> jwt
+                .tokenStore(tokenStore)
+                .accessTokenConverter(jwtAccessTokenConverter);
+//        .tokenStore(inMemoryTokenStore) //配置令牌的存储（这里存放在内存中）
     }
 
     @Override

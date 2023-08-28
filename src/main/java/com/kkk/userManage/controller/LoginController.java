@@ -1,6 +1,7 @@
 package com.kkk.userManage.controller;
 
 import com.kkk.userManage.entity.User;
+import io.jsonwebtoken.JwtBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +25,7 @@ public class LoginController {
         var authenticate = authenticationManager.authenticate(token);
 
         System.out.println(authenticate.isAuthenticated());
+
 
         return authenticate;
 
